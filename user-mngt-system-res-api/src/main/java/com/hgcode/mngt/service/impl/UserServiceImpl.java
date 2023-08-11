@@ -36,4 +36,12 @@ public class UserServiceImpl implements UserService {
         ).collect(Collectors.toList());
         return userList;
     }
+
+    @Override
+    public User getUserById(Long id) {
+        UserEntity userEntity = userRepository.findById(id).get();
+        User user = new User();
+        BeanUtils.copyProperties(userEntity,user);
+        return user;
+    }
 }

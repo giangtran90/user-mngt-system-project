@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
@@ -64,5 +65,15 @@ class UserServiceImplTest {
         );
 
         assertThat(userService.getAllUsers().get(0).getFirstName()).isEqualTo(userEntity.getFirstName());
+    }
+
+    @Test
+    void testGetUserById() {
+        mock(UserEntity.class);
+        mock(UserRepository.class);
+
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(userEntity));
+
+        assertThat(userService.getUserById(1L).getFirstName()).isEqualTo(userEntity.getFirstName());
     }
 }
