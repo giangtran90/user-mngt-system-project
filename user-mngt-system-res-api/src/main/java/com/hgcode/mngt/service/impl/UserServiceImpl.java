@@ -8,6 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -23,5 +26,14 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(user,userEntity);
         userRepository.save(userEntity);
         return user;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<UserEntity> userEntities = userRepository.findAll();
+        List<User> userList = userEntities.stream().map(
+                user -> new User(user.getId(),user.getFirstName(),user.getLastName(),user.getEmailId())
+        ).collect(Collectors.toList());
+        return userList;
     }
 }

@@ -11,6 +11,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -49,5 +52,17 @@ class UserServiceImplTest {
         when(userRepository.save(userEntity)).thenReturn(userEntity);
 
         assertThat(userService.saveUser(user)).isEqualTo(user);
+    }
+
+    @Test
+    void testGetAllUsers() {
+        mock(UserEntity.class);
+        mock(UserRepository.class);
+
+        when(userRepository.findAll()).thenReturn(
+                new ArrayList<UserEntity>(Collections.singleton(userEntity))
+        );
+
+        assertThat(userService.getAllUsers().get(0).getFirstName()).isEqualTo(userEntity.getFirstName());
     }
 }
