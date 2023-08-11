@@ -9,12 +9,16 @@ import com.hgcode.mngt.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +87,19 @@ class UserControllerTest {
 
         ObjectWriter objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
         return objectWriter.writeValueAsString(user);
+    }
+
+    @Test
+    void testGetUserById() throws Exception {
+        when(userService.getUserById(1L)).thenReturn(userOne);
+//        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/v1/users/1")
+//                .accept(MediaType.APPLICATION_JSON);
+//        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+//        System.out.println(result.getResponse().getContentAsString());
+//        String expected = "{id:1,firstName:Tran,lastName:Giang,emailId:giang08t3@gmail.com}";
+//        JSONAssert.assertEquals(expected,result.getResponse().getContentAsString(),false);
+        this.mockMvc.perform(get("/api/v1/users/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }
