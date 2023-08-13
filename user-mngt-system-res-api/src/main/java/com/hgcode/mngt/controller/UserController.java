@@ -43,4 +43,10 @@ public class UserController {
         response.put("deleted",deleted);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUserById(@PathVariable Long id, @RequestBody User user){
+        user = userService.updateUserById(id,user);
+        return ResponseEntity.ok(user);
+    }
 }

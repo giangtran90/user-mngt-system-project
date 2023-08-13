@@ -110,4 +110,18 @@ class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void testUpdateUserById() throws Exception{
+        User userUpdate = new User(1L,"Tran","Lam","lam@gmail.com");
+        String requestJson = writeValueAsString(userUpdate);
+
+        when(userService.updateUserById(1L,userUpdate)).thenReturn(userUpdate);
+
+        this.mockMvc.perform(put("/api/v1/users/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
