@@ -87,4 +87,19 @@ class UserServiceImplTest {
 
         assertThat(userService.deleteById(1L)).isTrue();
     }
+
+    @Test
+    void testUpdateUserById() {
+        mock(UserEntity.class);
+        mock(UserRepository.class);
+
+        User userUpdate = new User(1L,"Tran","Lam","lam@gmail.com");
+        UserEntity userEntityUpdate = new UserEntity();
+        BeanUtils.copyProperties(userUpdate,userEntityUpdate);
+
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(userEntity));
+        when(userRepository.save(userEntityUpdate)).thenReturn(userEntity);
+
+        assertThat(userService.updateUserById(1L,userUpdate)).isEqualTo(userUpdate);
+    }
 }
