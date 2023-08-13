@@ -7,7 +7,9 @@ import com.hgcode.mngt.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Answers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.BeanUtils;
 
@@ -16,8 +18,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class UserServiceImplTest {
     @Mock
@@ -75,5 +76,15 @@ class UserServiceImplTest {
         when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(userEntity));
 
         assertThat(userService.getUserById(1L).getFirstName()).isEqualTo(userEntity.getFirstName());
+    }
+
+    @Test
+    void testDeleteById() {
+        mock(UserEntity.class);
+        mock(UserRepository.class, Mockito.CALLS_REAL_METHODS);
+
+        doAnswer(Answers.CALLS_REAL_METHODS).when(userRepository).deleteById(any());
+
+        assertThat(userService.deleteById(1L)).isTrue();
     }
 }

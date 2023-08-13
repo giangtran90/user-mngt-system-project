@@ -5,7 +5,6 @@ import com.hgcode.mngt.model.User;
 import com.hgcode.mngt.repository.UserRepository;
 import com.hgcode.mngt.service.UserService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,5 +42,11 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(userEntity,user);
         return user;
+    }
+
+    @Override
+    public Boolean deleteById(Long id) {
+        userRepository.deleteById(id);
+        return true;
     }
 }
