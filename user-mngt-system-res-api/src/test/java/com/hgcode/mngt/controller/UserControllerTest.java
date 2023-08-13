@@ -24,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -99,6 +98,15 @@ class UserControllerTest {
 //        String expected = "{id:1,firstName:Tran,lastName:Giang,emailId:giang08t3@gmail.com}";
 //        JSONAssert.assertEquals(expected,result.getResponse().getContentAsString(),false);
         this.mockMvc.perform(get("/api/v1/users/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testDeleteById() throws Exception{
+        when(userService.deleteById(1L)).thenReturn(true);
+
+        this.mockMvc.perform(delete("/api/v1/users/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

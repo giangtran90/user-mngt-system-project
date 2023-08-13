@@ -5,7 +5,9 @@ import com.hgcode.mngt.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -31,5 +33,14 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id){
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Map<String,Boolean>> deleteById(@PathVariable Long id){
+        Boolean deleted = false;
+        deleted = userService.deleteById(id);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("deleted",deleted);
+        return ResponseEntity.ok(response);
     }
 }
