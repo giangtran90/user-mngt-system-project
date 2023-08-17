@@ -1,6 +1,6 @@
 import React from 'react'
 
-const User = ({user}) => {
+const User = ({user, deleteUser}) => {
   return (
     <tr key={user.id}>
         <td className='text-left px-6 py-4 whitespace-nowrap'>
@@ -14,7 +14,7 @@ const User = ({user}) => {
         </td>
         <td className='text-left px-6 py-4 whitespace-nowrap font-medium text-sm'>
             <a className='text-indigo-600 hover:text-indigo-800 px-4 hover:cursor-pointer'>Edit</a>
-            <a className='text-indigo-600 hover:text-indigo-800 px-4 hover:cursor-pointer'>Delete</a>
+            <a onClick={(e,id) => deleteUser(e,user.id)} className='text-indigo-600 hover:text-indigo-800 px-4 hover:cursor-pointer'>Delete</a>
         </td>
     </tr>
   )

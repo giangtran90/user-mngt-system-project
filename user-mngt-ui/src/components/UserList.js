@@ -25,6 +25,17 @@ const UserList = () => {
     fetchData();
   }, [])
   
+  // xu ly su kien delete
+  const deleteUser = (e,id) => {
+    e.preventDefault();
+    UserService.deleteUser(id).then((response) => {
+      if (users) {
+        setusers((prevUser) => {
+          return prevUser.filter((user) => user.id !== id);
+        })
+      }
+    })
+  }
 
   return (
     <div className='container mx-auto my-8'>
@@ -44,7 +55,7 @@ const UserList = () => {
             {!loading && (
             <tbody className='bg-white'>
               {users.map((user) => (
-                <User user={user} key={user.id}></User>
+                <User user={user} deleteUser = {deleteUser} key={user.id}></User>
               ))}
             </tbody>
             )}

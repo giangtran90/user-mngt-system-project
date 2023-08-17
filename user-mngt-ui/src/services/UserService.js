@@ -10,5 +10,9 @@ class UserService {
     saveUser(user) {
         return axios.post(USER_API_BASE_URL, user);
     }
+
+    deleteUser(id) {
+        return axios.delete(USER_API_BASE_URL + "/" + id);
+    }
 }
 export default new UserService()
