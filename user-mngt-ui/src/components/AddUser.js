@@ -30,6 +30,17 @@ const AddUser = () => {
             console.log(error);
         })
     }
+
+    // xu ly clear input
+    const clear = (e) => {
+        e.preventDefault();
+        setUser({
+            id : "",
+            firstName : "",
+            lastName : "",
+            emailId : ""
+        });
+    }
     
   return (
     // max-w-2xl: chieu rong toi da, shadow: them bong duoi, border-b: duong vien duoi, mx-auto: can le tu dong
@@ -46,15 +57,15 @@ const AddUser = () => {
              */}
             <div className='items-center justify-center h-14 w-full my-4'>
                 <label className='block text-gray-600 text-sm font-normal'>First Name</label>
-                <input type='text' name='firstName' onChange={(e) => handleChange(e)} className='h-10 w-96 border mt-2 px-2 py-2'></input>
+                <input type='text' name='firstName' value={user.firstName} onChange={(e) => handleChange(e)} className='h-10 w-96 border mt-2 px-2 py-2'></input>
             </div>
             <div className='items-center justify-center h-14 w-full my-4'>
                 <label className='block text-gray-600 text-sm font-normal'>Last Name</label>
-                <input type='text' name='lastName' onChange={(e) => handleChange(e)} className='h-10 w-96 border mt-2 px-2 py-2'></input>
+                <input type='text' name='lastName' value={user.lastName} onChange={(e) => handleChange(e)} className='h-10 w-96 border mt-2 px-2 py-2'></input>
             </div>
             <div className='items-center justify-center h-14 w-full my-4'>
                 <label className='block text-gray-600 text-sm font-normal'>Email Name</label>
-                <input type='email' name='emailId' onChange={(e) => handleChange(e)} className='h-10 w-96 border mt-2 px-2 py-2'></input>
+                <input type='email' name='emailId' value={user.emailId} onChange={(e) => handleChange(e)} className='h-10 w-96 border mt-2 px-2 py-2'></input>
             </div>
 
             {/* space-x-3: tao khoang cach giua 2 button
@@ -62,7 +73,8 @@ const AddUser = () => {
             */}
             <div className='items-center justify-center h-14 w-full my-4 space-x-3 pt-4'>
                 <button onClick={saveUser} className='rounded text-white font-semibold bg-green-400 hover:bg-green-700 px-6 py-2'>Save</button>
-                <button className='rounded text-white font-semibold bg-red-400 hover:bg-red-700 px-6 py-2'>Clear</button>
+                <button onClick={clear} className='rounded text-white font-semibold bg-red-400 hover:bg-red-700 px-6 py-2'>Clear</button>
+                <button onClick={() => navigate("/")} className='rounded text-white font-semibold bg-blue-400 hover:bg-red-700 px-6 py-2'>Cancel</button>
             </div>
         </div>
     </div>
