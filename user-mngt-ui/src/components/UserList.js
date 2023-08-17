@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import UserService from '../services/UserService';
 import User from './User';
+import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
 
   const [loading, setLoading] = useState(true);
   const [users, setusers] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +29,7 @@ const UserList = () => {
   return (
     <div className='container mx-auto my-8'>
       <div className='h-12'>
-        <button className='rounded bg-slate-600 text-white px-6 py-2 font-semibold'>Add User</button>
+        <button onClick={() => navigate("/addUser")} className='rounded bg-slate-600 text-white px-6 py-2 font-semibold'>Add User</button>
       </div>
       <div className='flex shadow border-b'>
           <table className='min-w-full'>

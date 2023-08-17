@@ -7,5 +7,8 @@ class UserService {
         return axios.get(USER_API_BASE_URL);
     }
 
+    saveUser(user) {
+        return axios.post(USER_API_BASE_URL, user);
+    }
 }
 export default new UserService()
